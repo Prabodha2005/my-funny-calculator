@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny Calculator</title>
+    <style>
+        /* Basic styling for the calculator */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .calculator {
+            border: 5px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .display {
+            width: 100%;
+            height: 60px;
+            background-color: #222;
+            color: #00ff00; /* Neon green for a fun look */
+            font-size: 2em;
+            text-align: right;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 2px solid #000;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 20px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            background-color: #e0e0e0;
+        }
+
+        .btn:hover {
+            background-color: #ccc;
+        }
+
+        .operator {
+            background-color: #ff9500;
+            color: white;
+        }
+
+        .operator:hover {
+            background-color: #e08500;
+        }
+
+        .equals {
+            background-color: #ff3b30; /* Red for the "error" button */
+            color: white;
+            grid-column: span 2; /* Make the equals button wider */
+        }
+
+        .equals:hover {
+            background-color: #d83028;
+        }
+
+        .clear {
+            background-color: #5856d6;
+            color: white;
+        }
+
+        .clear:hover {
+            background-color: #4a47c2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        
+        <div class="buttons">
+            <button class="btn clear" onclick="clearDisplay()">C</button>
+
+            <button class="btn operator" onclick="appendInput('/')">/</button>
+            <button class="btn operator" onclick="appendInput('*')">x</button>
+            <button class="btn operator" onclick="appendInput('-')">-</button>
+            <button class="btn" onclick="appendInput('7')">7</button>
+            <button class="btn" onclick="appendInput('8')">8</button>
+            <button class="btn" onclick="appendInput('9')">9</button>
+            <button class="btn operator" onclick="appendInput('+')">+</button>
+            <button class="btn" onclick="appendInput('4')">4</button>
+            <button class="btn" onclick="appendInput('5')">5</button>
+            <button class="btn" onclick="appendInput('6')">6</button>
+            <button class="btn" onclick="appendInput('1')">1</button>
+            <button class="btn" onclick="appendInput('2')">2</button>
+            <button class="btn" onclick="appendInput('3')">3</button>
+            <button class="btn" onclick="appendInput('0')">0</button>
+            <button class="btn" onclick="appendInput('.')">.</button>
+
+            <button class="btn equals" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the display element
+        const display = document.getElementById('display');
+        let currentInput = '';
+
+        // Function to append a number or operator to the input string
+        function appendInput(value) {
+            // If the display currently shows the error, clear it before appending
+            if (display.textContent.includes('ERROR')) {
+                currentInput = '';
+                display.style.color = '#00ff00'; // Reset color
+            }
+            
+            currentInput += value;
+            display.textContent = currentInput;
+        }
+
+        // Function to clear the display
+        function clearDisplay() {
+            currentInput = '';
+            display.textContent = '0';
+            display.style.color = '#00ff00'; // Reset color
+        }
+
+        // The funny calculation function!
+        function calculate() {
+            // Check if there's any input before "calculating"
+            if (currentInput) {
+                // YOUR CUSTOM MESSAGE HERE
+                const errorMessage = "= ERROR: I’m on lunch break 🍔";
+                
+                // Change the display text to your error message
+                display.textContent = errorMessage;
+                
+                // Optional: Change the color to make the error stand out
+                display.style.color = '#ff3b30'; // Red color
+                
+                // Clear the input so the user has to start over
+                currentInput = '';
+            } else {
+                // If they just press '=' with nothing, show a regular 0 or a prompt
+                display.textContent = 'Enter something first!';
+                display.style.color = '#ff9500'; // Orange color
+            }
+        }
+
+        // Initialize with 0 on load
+        clearDisplay();
+    </script>
+
+</body>
+</html>
